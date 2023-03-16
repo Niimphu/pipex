@@ -6,13 +6,13 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/16 14:39:52 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/16 18:28:21 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *envp[])
 {
-	ready(argc, argv);
+	ready(argc, argv, envp);
 }
