@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ready.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:25:57 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/17 17:16:00 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/17 17:28:51 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	initialise(int argc, char *argv[], char *envp[])
+int	pipex(char *argv[], char *envp[], int *fd[])
 {
-	//open in + out
 	
-	
-	//send commands to 
 }
 
-int	parse_command(int argc, char *argv[], envp[])
+int	parse_command(char *argv[], char *envp[], int *fd[])
 {
 	int	i;
 
