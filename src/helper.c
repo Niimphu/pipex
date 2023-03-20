@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 19:25:57 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/20 18:15:07 by yiwong           ###   ########.fr       */
+/*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
+/*   Updated: 2023/03/20 18:39:32 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+char	*path_trim(char *str)
 {
-	int fd[2];
+	char	*ret;
 
-	if (argc < 5)
-		return (ft_printf("Not enough arguments."));
-	fd[0] = open(argv[1], O_RDONLY);
-	fd[1] = open(argv[argc - 1], O_RDWR | O_CREAT, 0644);
-	if (fd[0] == -1 || fd[1] == -1)
-		return (perror("open"), 0);
-	pipex(argv, envp, fd);
-	if (close(fd[0]) == -1 || close(fd[1]) == -1)
-		return (perror("close"), 0);
-	return (0);
+	ret = strdup(str + 5);
+	free(str);
+	str = NULL;
+	return (ret);
+}
+
+void	print_array(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+	{
+		ft_printf("arr[%i]: %s\n", i, arr[i]);
+		i++;
+	}
+	return ;
 }
