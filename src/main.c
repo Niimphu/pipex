@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:25:57 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/20 18:15:07 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/20 22:11:22 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	int fd[2];
+	int	fd[2];
 
 	if (argc < 5)
 		return (ft_printf("Not enough arguments."));

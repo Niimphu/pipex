@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/20 18:39:32 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/20 22:10:57 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*path_trim(char *str)
 
 void	print_array(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i])

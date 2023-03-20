@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/20 18:38:56 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/20 22:11:53 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	pipex(char *argv[], char *envp[], int fd[])
 {
-	t_cmds *data;
-	
+	t_cmds	*data;
+
 	data = struct_init(envp, fd);
 	ft_printf(argv[1]);
 	return (0);
 }
 
-t_cmds *struct_init(char *envp[], int fd_in[])
+t_cmds	*struct_init(char *envp[], int fd_in[])
 {
 	t_cmds	*data;
 
@@ -35,11 +35,11 @@ t_cmds *struct_init(char *envp[], int fd_in[])
 	return (data);
 }
 
-char **find_paths(char *envp[])
+char	**find_paths(char *envp[])
 {
 	int		i;
 	char	**ret;
-	
+
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5) && envp[i])
 		i++;

@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/20 18:34:15 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/20 22:10:29 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ typedef struct s_cmds
 	char	**args;
 }			t_cmds;
 
-int	pipex(char *argv[], char *envp[], int fd[]);
-t_cmds *struct_init(char *envp[], int fd_in[]);
-char **find_paths(char *envp[]);
+int		pipex(char *argv[], char *envp[], int fd[]);
+t_cmds	*struct_init(char *envp[], int fd_in[]);
+char	**find_paths(char *envp[]);
 char	*path_trim(char *str);
-
 
 void	print_array(char **arr);
 
