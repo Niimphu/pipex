@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/20 22:11:53 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/21 04:30:07 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	pipex(char *argv[], char *envp[], int fd[])
 	t_cmds	*data;
 
 	data = struct_init(envp, fd);
-	ft_printf(argv[1]);
+	ft_printf("test print: %s, %s\n", argv[1], data -> cmd);
+//	if (!pipe(fd))
+		
 	return (0);
 }
 
@@ -31,7 +33,6 @@ t_cmds	*struct_init(char *envp[], int fd_in[])
 	data -> fd = fd_in;
 	data -> cmd = NULL;
 	data -> path = find_paths(envp);
-	print_array(data -> path);
 	return (data);
 }
 
