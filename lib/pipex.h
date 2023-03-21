@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/21 18:07:27 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/21 19:03:50 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ char	*path_trim(char *str);
 void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
 void	free_ppointer(char **str);
+
+int		pipe_fork(char *cmd, t_cmds *data);
+int		execute(t_cmds *data);
+char	*find_exec(char *cmd, char **paths);
+char	*create_path(char *cmd, char *path);
+
 
 void	print_array(char **arr);
 

@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:32:59 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/21 17:56:53 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/21 19:04:36 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	pipe_fork(char *cmd, t_cmds *data)
 {
 	int		pid;
 
-	data -> args = ft_split(cmd);
+	data -> args = ft_split(cmd, ' ');
 	data -> cmd = (data -> args)[0];
 	(data -> args)++;
-	if (pipe(data -> ) == -1)
+	if (pipe(data -> fd) == -1)
 		return (1);
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork"));
-	if (pid == 0)
-		execute(data);
+		return (perror("fork :"), 0);
+	// if (pid == 0)
+	// 	execute(data);
 	return (0);
 }
 
@@ -36,7 +36,8 @@ int	execute(t_cmds *data)
 	executable = find_exec(data -> cmd, data -> path);
 	if (!executable)
 		return (1);
-	execve(executable, data -> args, data -> envp)
+	execve(executable, data -> args, data -> envp);
+	return (0);
 }
 
 char	*find_exec(char *cmd, char **paths)
@@ -62,10 +63,10 @@ char	*create_path(char *cmd, char *path)
 	char	*ret;
 
 	slash = "/";
-	ret = strjoin(path, slash);
+	ret = ft_strjoin(path, slash);
 	if (!ret)
 		return (NULL);
-	ret = strjoin(ret, cmd);
+	ret = ft_strjoin(ret, cmd);
 	if (!ret)
 		return (NULL);
 	return (ret);
