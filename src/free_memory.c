@@ -14,13 +14,6 @@
 
 void	free_cmds(t_cmds *data)
 {
-	if (data -> fd)
-	{
-		free(fd[0]);
-		fd[0] = NULL;
-		free(fd[1]);
-		fd[1] = NULL;
-	}
 	if (data -> cmd)
 		free_pointer(data -> cmd);
 	if (data -> path)
@@ -42,6 +35,8 @@ void	free_pointer(char *str)
 
 void	free_ppointer(char **str)
 {
+	int	i;
+
 	i = 0;
 	if (**str)
 	{

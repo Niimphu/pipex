@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/21 04:24:35 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/21 18:07:27 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
 
-# include <string.h>
-
 typedef struct s_cmds
 {
-	int		*fd;
+	int		fd[2];
 	char	*cmd;
 	char	**path;
 	char	**args;
+	char	**envp;
 }			t_cmds;
 
 int		pipex(char *argv[], char *envp[], int fd[]);
@@ -38,7 +37,6 @@ char	*path_trim(char *str);
 void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
 void	free_ppointer(char **str);
-
 
 void	print_array(char **arr);
 
