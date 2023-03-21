@@ -1,0 +1,1 @@
+make -s re && make -s clean && ./pipex infile "ls -l -m -r -s -t -u" "wc -c" outfile

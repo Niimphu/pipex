@@ -6,26 +6,30 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:32:59 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/21 19:04:36 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/22 00:06:33 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	pipe_fork(char *cmd, t_cmds *data)
+int	fork_pipe(char *cmd, t_cmds *data)
 {
 	int		pid;
 
 	data -> args = ft_split(cmd, ' ');
 	data -> cmd = (data -> args)[0];
 	(data -> args)++;
+	print_array(data -> args);
 	if (pipe(data -> fd) == -1)
 		return (1);
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork :"), 0);
-	// if (pid == 0)
-	// 	execute(data);
+		return (perror("fork: "), 0);
+	if (pid == 0)
+		execute(data);
+	// free_ppointer(data -> args);
+	free_pointer(data -> cmd);
+	waitpid(pid, NULL, 0);
 	return (0);
 }
 
@@ -36,7 +40,8 @@ int	execute(t_cmds *data)
 	executable = find_exec(data -> cmd, data -> path);
 	if (!executable)
 		return (1);
-	execve(executable, data -> args, data -> envp);
+	printf("testing: %s\n", executable);
+	//execve(executable, data -> args, data -> envp);
 	return (0);
 }
 
