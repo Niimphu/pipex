@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/22 22:21:14 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/22 23:26:32 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		pipex(char *argv[], char *envp[], int fd[]);
 t_cmds	*struct_init(char *envp[], int fd_in[]);
 char	**find_paths(char *envp[]);
 
-int		fork_this(char *cmd, t_cmds *data, int pipe_fd[]);
+int		fork_this(char *cmd, t_cmds *data);
 int		execute(t_cmds *data);
 char	*find_exec(char *cmd, char **paths);
 char	*create_path(char *cmd, char *path);
@@ -47,6 +47,7 @@ void	free_ppointer(char **str);
 void	error_exit(t_cmds *data, char *strerr);
 
 char	*path_trim(char *str);
+t_cmds	*cmd_split(char *cmd, t_cmds *data);
 
 void	print_array(char **arr);
 

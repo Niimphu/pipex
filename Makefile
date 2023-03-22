@@ -6,7 +6,7 @@
 #    By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 19:20:45 by yiwong            #+#    #+#              #
-#    Updated: 2023/03/22 00:02:55 by yiwong           ###   ########.fr        #
+#    Updated: 2023/03/22 23:08:43 by yiwong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ PRINTFDIR = lib/ft_printf/
 
 SRC = src/main.c \
 		src/pipex.c \
-		src/helper.c \
+		src/utils.c \
 		src/free_memory.c \
 		src/error.c \
 		src/child_process.c \

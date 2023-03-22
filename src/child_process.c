@@ -6,21 +6,18 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:32:59 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/22 00:06:33 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/22 23:41:14 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	fork_pipe(char *cmd, t_cmds *data)
+int	fork_this(char *cmd, t_cmds *data)
 {
 	int		pid;
 
-	data -> args = ft_split(cmd, ' ');
-	data -> cmd = (data -> args)[0];
-	(data -> args)++;
-	print_array(data -> args);
-	if (pipe(data -> fd) == -1)
+	data = cmd_split(cmd, data);
+	if (pipe(data -> fd) == -1)	
 		return (1);
 	pid = fork();
 	if (pid < 0)
@@ -41,7 +38,7 @@ int	execute(t_cmds *data)
 	if (!executable)
 		return (1);
 	printf("testing: %s\n", executable);
-	//execve(executable, data -> args, data -> envp);
+	execve(executable, data -> args, data -> envp);
 	return (0);
 }
 
