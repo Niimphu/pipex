@@ -11,3 +11,10 @@
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
+
+void	error_exit(t_cmds *data, char *strerr)
+{
+	free_cmds(data);
+	perror(strerr);
+	exit(errno);
+}
