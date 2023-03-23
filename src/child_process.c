@@ -6,27 +6,42 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:32:59 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/23 18:21:25 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/23 20:13:25 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	fork_this(char *cmd, t_cmds *data)
+int	fork_this(char *cmd, t_cmds *data, int i)
 {
-	int		pid;
+	int	pid;
+	int	pipe_fd[2];
 
 	data = cmd_split(cmd, data);
-	if (pipe(data -> fd) == -1)	
+	if (pipe(pipe_fd) == -1)
 		return (1);
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork: "), 0);
 	if (pid == 0)
-		execute(data);
-	// free_ppointer(data -> args);
+		child_process(data, pipe_fd);
+	else
+		close(pipe_fd[1]);
 	free_pointer(data -> cmd);
-	waitpid(pid, NULL, 0);
+	data -> fd[0] = pipe_fd[0];
+	return (0);
+}
+
+int	child_process(t_cmds *data, int pipe_fd[])
+{
+	dup2(data -> fd[0], STDIN_FILENO);
+	if (i == 0)
+		dup2(data -> fd[1], STDOUT_FILENO);
+	else
+		dup2(pipe_fd[1], STDOUT_FILENO);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	execute(data);
 	return (0);
 }
 
@@ -56,19 +71,4 @@ char	*find_exec(char *cmd, char **paths)
 			return (test);
 	}
 	return (NULL);
-}
-
-char	*create_path(char *cmd, char *path)
-{
-	char	*slash;
-	char	*ret;
-
-	slash = "/";
-	ret = ft_strjoin(path, slash);
-	if (!ret)
-		return (NULL);
-	ret = ft_strjoin(ret, cmd);
-	if (!ret)
-		return (NULL);
-	return (ret);
 }
