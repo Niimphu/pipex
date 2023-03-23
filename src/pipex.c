@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/22 23:42:39 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:35:36 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	pipex(char *argv[], char *envp[], int fd[])
 
 	data = struct_init(envp, fd);
 	i = 2;
-	while (argv[i + 1])
+	while (argv[i + 2])
 	{
 		dup2(fd[0], STDIN_FILENO);
 		fork_this(argv[i], data);
 		i++;
 	}
-	dup2(fd[1], STDOUT_FILENO);
-	fork_this(argv[i], data);
+	// dup2(fd[1], STDOUT_FILENO);
+	// fork_this(argv[i], data);
 	return (0);
 }
 

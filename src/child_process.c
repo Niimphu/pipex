@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:32:59 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/22 23:41:14 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/23 18:21:25 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	execute(t_cmds *data)
 	executable = find_exec(data -> cmd, data -> path);
 	if (!executable)
 		return (1);
-	printf("testing: %s\n", executable);
 	execve(executable, data -> args, data -> envp);
 	return (0);
 }
