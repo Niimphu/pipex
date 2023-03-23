@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/23 19:34:16 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/23 21:21:48 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 typedef struct s_cmds
 {
 	int		fd[2];
+	int		i;
 	char	*cmd;
 	char	**path;
 	char	**args;
@@ -35,10 +36,11 @@ int		pipex(char *argv[], char *envp[], int fd[]);
 t_cmds	*struct_init(char *envp[], int fd_in[]);
 char	**find_paths(char *envp[]);
 
-int		fork_this(char *cmd, t_cmds *data, int i);
+int		fork_this(char *cmd, t_cmds *data);
 int		execute(t_cmds *data);
 char	*find_exec(char *cmd, char **paths);
 char	*create_path(char *cmd, char *path);
+int	child_process(t_cmds *data, int pipe_fd[]);
 
 void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
