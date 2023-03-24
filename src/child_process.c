@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:32:59 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/24 01:50:30 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/24 19:02:02 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	fork_this(char *cmd, t_cmds *data)
 	else
 		close(pipe_fd[1]);
 	data -> fd[0] = pipe_fd[0];
+	if (data -> args)
+		free_ppointer(data -> args);
 	return (0);
 }
 

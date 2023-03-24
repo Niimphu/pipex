@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/24 01:50:45 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/24 17:42:45 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		fork_this(char *cmd, t_cmds *data);
 int		execute(t_cmds *data);
 char	*find_exec(char *cmd, char **paths);
 char	*create_path(char *cmd, char *path);
-int	child_process(t_cmds *data, int pipe_fd[]);
+int		child_process(t_cmds *data, int pipe_fd[]);
 
 void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
