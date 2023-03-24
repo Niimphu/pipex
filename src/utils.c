@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/23 20:08:25 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/24 00:12:01 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*path_trim(char *str)
 	char	*ret;
 
 	ret = ft_strdup(str + 5);
+	if (!ret)
+		return (NULL);
 	free(str);
 	str = NULL;
 	return (ret);
@@ -43,9 +45,6 @@ char	*create_path(char *cmd, char *path)
 		return (NULL);
 	return (ret);
 }
-
-
-
 
 void	print_array(char **arr)
 {

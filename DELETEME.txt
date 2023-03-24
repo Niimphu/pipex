@@ -1,1 +1,1 @@
-make -s re && make -s clean && ./pipex infile "ls" "wc" outfile
+./pipex infile cat "grep cheese" "wc -l" outfile

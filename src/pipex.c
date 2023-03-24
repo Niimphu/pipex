@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/23 20:00:34 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/24 01:50:42 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ int	pipex(char *argv[], char *envp[], int fd[])
 	i = 2;
 	while (argv[i + 2])
 	{
-		fork_this(argv[i], data, i);
+		fork_this(argv[i], data);
 		i++;
 	}
-	fork_this(argv[i], data, 0);
+	data -> i = 0;
+	fork_this(argv[i], data);
 	return (0);
 }
 
@@ -45,6 +46,7 @@ t_cmds	*struct_init(char *envp[], int fd_in[])
 	if (!(data -> path))
 		return (NULL);
 	data -> envp = envp;
+	data -> i = 1;
 	return (data);
 }
 

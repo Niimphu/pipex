@@ -6,13 +6,13 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:32:59 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/23 20:13:25 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/24 01:50:30 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	fork_this(char *cmd, t_cmds *data, int i)
+int	fork_this(char *cmd, t_cmds *data)
 {
 	int	pid;
 	int	pipe_fd[2];
@@ -27,7 +27,6 @@ int	fork_this(char *cmd, t_cmds *data, int i)
 		child_process(data, pipe_fd);
 	else
 		close(pipe_fd[1]);
-	free_pointer(data -> cmd);
 	data -> fd[0] = pipe_fd[0];
 	return (0);
 }
@@ -35,13 +34,14 @@ int	fork_this(char *cmd, t_cmds *data, int i)
 int	child_process(t_cmds *data, int pipe_fd[])
 {
 	dup2(data -> fd[0], STDIN_FILENO);
-	if (i == 0)
+	if (data -> i == 0)
 		dup2(data -> fd[1], STDOUT_FILENO);
 	else
 		dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	execute(data);
+	if (execute(data))
+		error_exit(data, NULL);
 	return (0);
 }
 
