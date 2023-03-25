@@ -6,7 +6,7 @@
 #    By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 19:20:45 by yiwong            #+#    #+#              #
-#    Updated: 2023/03/24 00:23:29 by yiwong           ###   ########.fr        #
+#    Updated: 2023/03/25 15:30:39 by yiwong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-DEPS = push_swap.h
+DEPS = lib/pipex.h
 
 LIBFT = libft.a
 
