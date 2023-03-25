@@ -1,1 +1,0 @@
-./pipex infile cat "grep cheese" "wc -l" outfile

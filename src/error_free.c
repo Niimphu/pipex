@@ -20,7 +20,7 @@ void	error_exit(t_cmds *data, char *strerr)
 
 void	free_cmds(t_cmds *data)
 {
-	if (*data -> cmd)
+	if (data -> cmd)
 		free_pointer(data -> cmd);
 	if (*data -> path)
 		free_ppointer(data -> path);
