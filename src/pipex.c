@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/25 15:50:04 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/25 19:08:11 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	child_process(t_cmds *data, int pipe_fd[])
 		dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	if (execute(data))
+	if (execute(data) == 1)
 		error_exit(data, NULL);
 	return (0);
 }
