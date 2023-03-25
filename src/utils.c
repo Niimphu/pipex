@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/24 18:54:39 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/25 15:42:50 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,6 @@ char	*path_trim(char *str)
 	return (ret);
 }
 
-t_cmds	*cmd_split(char *cmd, t_cmds *data)
-{
-	// int	i;
-
-	data -> args = ft_split(cmd, ' ');
-	if (!data -> args)
-		error_exit(data, "split: ");
-	data -> cmd = (data -> args)[0];
-	// if (data -> args[1])
-	// {
-	// 	data -> args[1] = ft_strtrim(data -> args[1], "'");
-	// 	i = 0;
-	// 	while (data -> args[i])
-	// 		i++;
-	// 	i--;
-	// 	data -> args[i] = ft_strtrim(data -> args[i], "'");
-	// }
-	return (data);
-}
-
 char	*create_path(char *cmd, char *path)
 {
 	char	*slash;
@@ -57,6 +37,23 @@ char	*create_path(char *cmd, char *path)
 	if (!ret)
 		return (NULL);
 	return (ret);
+}
+
+char	*find_exec(char *cmd, char **paths)
+{
+	char	*test;
+	int		i;
+
+	i = 0;
+	while (paths[i])
+	{
+		test = create_path(cmd, paths[i++]);
+		if (!test)
+			return (NULL);
+		if (access(test, X_OK) == 0)
+			return (test);
+	}
+	return (NULL);
 }
 
 void	print_array(char **arr)

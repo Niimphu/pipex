@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/24 19:27:34 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/25 15:42:05 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,48 @@ int	pipex(char *argv[], char *envp[], int fd[])
 	return (0);
 }
 
-t_cmds	*struct_init(char *envp[], int fd_in[])
+int	fork_this(char *cmd, t_cmds *data)
 {
-	t_cmds	*data;
+	int	pid;
+	int	pipe_fd[2];
 
-	data = malloc(sizeof(t_cmds));
-	if (!data)
-		return (NULL);
-	data -> fd[0] = fd_in[0];
-	data -> fd[1] = fd_in[1];
-	if (data -> fd[0] == -1 || data -> fd[1] == -1)
-		return (NULL);
-	data -> cmd = NULL;
-	data -> path = find_paths(envp);
-	data -> args = NULL;
-	if (!(data -> path))
-		return (NULL);
-	data -> envp = envp;
-	data -> i = 1;
-	return (data);
+	data = cmd_split(cmd, data);
+	if (pipe(pipe_fd) == -1)
+		return (1);
+	pid = fork();
+	if (pid < 0)
+		return (perror("fork: "), 0);
+	if (pid == 0)
+		child_process(data, pipe_fd);
+	else
+		close(pipe_fd[1]);
+	data -> fd[0] = pipe_fd[0];
+	if (data -> args)
+		free_ppointer(data -> args);
+	return (0);
 }
 
-char	**find_paths(char *envp[])
+int	child_process(t_cmds *data, int pipe_fd[])
 {
-	int		i;
-	char	**ret;
+	dup2(data -> fd[0], STDIN_FILENO);
+	if (data -> i == 0)
+		dup2(data -> fd[1], STDOUT_FILENO);
+	else
+		dup2(pipe_fd[1], STDOUT_FILENO);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	if (execute(data))
+		error_exit(data, NULL);
+	return (0);
+}
 
-	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5) && envp[i])
-		i++;
-	if (!envp[i])
-		return (NULL);
-	ret = ft_split(envp[i], ':');
-	if (!ret)
-		return (NULL);
-	ret[0] = path_trim(ret[0]);
-	return (ret);
+int	execute(t_cmds *data)
+{
+	char	*executable;
+
+	executable = find_exec(data -> cmd, data -> path);
+	if (!executable)
+		return (1);
+	execve(executable, data -> args, data -> envp);
+	return (0);
 }
