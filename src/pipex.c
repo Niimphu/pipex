@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/31 04:32:21 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/31 05:25:56 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	fork_this(char *cmd, t_cmds *data)
 		return (1);
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork: "), 0);
+		error_exit(data, "Fork", 1);
 	if (pid == 0)
 		child_process(data, pipe_fd);
 	else
@@ -65,20 +65,23 @@ void	child_process(t_cmds *data, int pipe_fd[])
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	if (execute(data) == 1)
-		error_exit(data, "Execve fail: ", -1);
+		error_exit(data, "Execve fail", -1);
 	exit(0);
 }
 
 void	parent_process(t_cmds *data, int pipe_fd[])
 {
 	int	status;
+	int	error;
 
 	close(pipe_fd[1]);
 	while (wait(&status) > 0)
 	{
 		if (status != 0)
-			error_exit(data, NULL, status);
+			error = status;
 	}
+	if (error)
+		error_exit(data, NULL, error);
 }
 
 int	execute(t_cmds *data)

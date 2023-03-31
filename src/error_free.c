@@ -14,8 +14,8 @@
 
 void	error_exit(t_cmds *data, char *strerr, int status)
 {
-	if (data)
-		free_cmds(data);
+	if (data){}
+		// free_cmds(data);
 	perror(strerr);
 	exit(status);
 }
