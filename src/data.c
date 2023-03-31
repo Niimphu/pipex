@@ -54,7 +54,7 @@ t_cmds	*cmd_split(char *cmd, t_cmds *data)
 {
 	data -> args = ft_split(cmd, ' ');
 	if (!data -> args)
-		error_exit(data, "split: ");
+		error_exit(data, "Malloc: ", -1);
 	data -> cmd = (data -> args)[0];
 	return (data);
 }

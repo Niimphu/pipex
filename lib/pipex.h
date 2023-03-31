@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/24 17:42:45 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/31 04:28:06 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,21 @@ typedef struct s_cmds
 }			t_cmds;
 
 int		pipex(char *argv[], char *envp[], int fd[]);
+int		fork_this(char *cmd, t_cmds *data);
+void	child_process(t_cmds *data, int pipe_fd[]);
+void	parent_process(t_cmds *data, int pipe_fd[]);
+int		execute(t_cmds *data);
+
 t_cmds	*struct_init(char *envp[], int fd_in[]);
 char	**find_paths(char *envp[]);
-
-int		fork_this(char *cmd, t_cmds *data);
-int		execute(t_cmds *data);
-char	*find_exec(char *cmd, char **paths);
 char	*create_path(char *cmd, char *path);
-int		child_process(t_cmds *data, int pipe_fd[]);
+char	*find_exec(char *cmd, char **paths);
 
 void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
 void	free_ppointer(char **str);
 
-void	error_exit(t_cmds *data, char *strerr);
+void	error_exit(t_cmds *data, char *strerr, int status);
 
 char	*path_trim(char *str);
 t_cmds	*cmd_split(char *cmd, t_cmds *data);

@@ -12,25 +12,26 @@
 
 #include "../lib/pipex.h"
 
-void	error_exit(t_cmds *data, char *strerr)
+void	error_exit(t_cmds *data, char *strerr, int status)
 {
-	free_cmds(data);
+	if (data)
+		free_cmds(data);
 	perror(strerr);
+	exit(status);
 }
 
 void	free_cmds(t_cmds *data)
 {
+	if (!data)
+		return ;
 	if (data -> cmd)
 		free_pointer(data -> cmd);
 	if (*data -> path)
 		free_ppointer(data -> path);
 	if (*data -> args)
 		free_ppointer(data -> args);
-	if (data)
-	{
-		free(data);
-		data = NULL;
-	}
+	free(data);
+	data = NULL;
 	return ;
 }
 

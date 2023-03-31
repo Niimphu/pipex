@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/28 19:03:13 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/31 04:32:21 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int	fork_this(char *cmd, t_cmds *data)
 	if (pid == 0)
 		child_process(data, pipe_fd);
 	else
-		close(pipe_fd[1]);
+		parent_process(data, pipe_fd);
 	data -> fd[0] = pipe_fd[0];
 	if (data -> args)
 		free_ppointer(data -> args);
 	return (0);
 }
 
-int	child_process(t_cmds *data, int pipe_fd[])
+void	child_process(t_cmds *data, int pipe_fd[])
 {
 	dup2(data -> fd[0], STDIN_FILENO);
 	if (data -> i == 0)
@@ -65,8 +65,20 @@ int	child_process(t_cmds *data, int pipe_fd[])
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	if (execute(data) == 1)
-		error_exit(data, NULL);
-	return (0);
+		error_exit(data, "Execve fail: ", -1);
+	exit(0);
+}
+
+void	parent_process(t_cmds *data, int pipe_fd[])
+{
+	int	status;
+
+	close(pipe_fd[1]);
+	while (wait(&status) > 0)
+	{
+		if (status != 0)
+			error_exit(data, NULL, status);
+	}
 }
 
 int	execute(t_cmds *data)
