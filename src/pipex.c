@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/31 05:25:56 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/03/31 14:30:48 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	pipex(char *argv[], char *envp[], int fd[])
 	}
 	data -> i = 0;
 	fork_this(argv[i], data);
-	if (data -> path)
-		free_ppointer(data -> path);
 	free(data);
 	return (0);
 }
