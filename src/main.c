@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:25:57 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/31 05:15:42 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/01 18:05:24 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int	main(int argc, char *argv[], char *envp[])
 	int	fd[2];
 
 	if (argc < 5)
-		return (ft_printf("Not enough arguments.\n"));
-	fd[0] = open(argv[1], O_RDONLY);
+		return (ft_printf("Not enough arguments."));
 	fd[1] = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0644);
-	if (fd[0] == -1 || fd[1] == -1)
-		error_exit(NULL, "Open", 1);
+	if (fd[1] == -1)
+		open_error((argv[argc - 1]), -1);
+	fd[0] = open(argv[1], O_RDONLY);
+	if (fd[0] == -1)
+		open_error((argv[1]), fd[1]);
 	pipex(argv, envp, fd);
-	if (close(fd[0]) == -1 || close(fd[1]) == 1)
-		error_exit(NULL, "Close", 1);
+	if (close(fd[0]) == -1 || close(fd[1]) == -1)
+		return (perror("close: "), 0);
 	return (0);
 }

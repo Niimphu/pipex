@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/31 14:30:48 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/01 16:54:01 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	fork_this(char *cmd, t_cmds *data)
 		return (1);
 	pid = fork();
 	if (pid < 0)
-		error_exit(data, "Fork", 1);
+		return (perror("fork: "), 0);
 	if (pid == 0)
 		child_process(data, pipe_fd);
 	else
@@ -63,8 +63,7 @@ void	child_process(t_cmds *data, int pipe_fd[])
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	if (execute(data) == 1)
-		error_exit(data, "Execve fail", -1);
-	exit(0);
+		exit(errno);
 }
 
 void	parent_process(t_cmds *data, int pipe_fd[])
@@ -73,13 +72,15 @@ void	parent_process(t_cmds *data, int pipe_fd[])
 	int	error;
 
 	close(pipe_fd[1]);
+	if (data -> i == 0)
+		close(pipe_fd[0]);
 	while (wait(&status) > 0)
 	{
 		if (status != 0)
 			error = status;
 	}
-	if (error)
-		error_exit(data, NULL, error);
+	if (data)
+		;
 }
 
 int	execute(t_cmds *data)
@@ -89,6 +90,5 @@ int	execute(t_cmds *data)
 	executable = find_exec(data -> cmd, data -> path);
 	if (!executable)
 		return (1);
-	execve(executable, data -> args, data -> envp);
-	return (0);
+	return (execve(executable, data -> args, data -> envp));
 }

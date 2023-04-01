@@ -12,50 +12,17 @@
 
 #include "../lib/pipex.h"
 
-void	error_exit(t_cmds *data, char *strerr, int status)
+void	error_exit(t_cmds *data, char *str)
 {
-	if (data){}
-		// free_cmds(data);
-	perror(strerr);
-	exit(status);
+	free_cmds(data);
+	perror(str);
 }
 
-void	free_cmds(t_cmds *data)
+void	open_error(char *filename, int fd)
 {
-	if (!data)
-		return ;
-	if (data -> cmd)
-		free_pointer(data -> cmd);
-	if (*data -> path)
-		free_ppointer(data -> path);
-	if (*data -> args)
-		free_ppointer(data -> args);
-	free(data);
-	data = NULL;
-	return ;
-}
-
-void	free_pointer(char *str)
-{
-	if (str)
-	{
-		free(str);
-		str = NULL;
-	}
-	return ;
-}
-
-void	free_ppointer(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-			free_pointer(str[i++]);
-		free(str);
-		str = NULL;
-	}
-	return ;
+	if (fd != -1)
+		write(fd, "       0\n", 9);
+	write(STDERR_FILENO, "pipex: ", 7);
+	perror(filename);
+	exit(0);
 }

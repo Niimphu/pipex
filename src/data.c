@@ -42,7 +42,7 @@ char	**find_paths(char *envp[])
 	while (ft_strncmp(envp[i], "PATH=", 5) && envp[i])
 		i++;
 	if (!envp[i])
-		return (NULL);
+		*envp = "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
 	ret = ft_split(envp[i], ':');
 	if (!ret)
 		return (NULL);
@@ -54,7 +54,7 @@ t_cmds	*cmd_split(char *cmd, t_cmds *data)
 {
 	data -> args = ft_split(cmd, ' ');
 	if (!data -> args)
-		error_exit(data, "Malloc", -1);
+		error_exit(data, "split: ");
 	data -> cmd = (data -> args)[0];
 	return (data);
 }

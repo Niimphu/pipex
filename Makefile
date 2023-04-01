@@ -6,7 +6,7 @@
 #    By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 19:20:45 by yiwong            #+#    #+#              #
-#    Updated: 2023/03/25 15:44:39 by yiwong           ###   ########.fr        #
+#    Updated: 2023/04/01 18:08:05 by yiwong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ PRINTFDIR = lib/ft_printf/
 SRC = src/main.c \
 		src/pipex.c \
 		src/data.c \
-		src/error_free.c \
+		src/error.c \
+		src/free.c \
 		src/utils.c
 
 OBJ = $(SRC:.c=.o)
@@ -38,26 +39,26 @@ NAME = pipex
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT) $(PRINTF)
-		$(CC) $(CFLAGS) $(OBJ) $(PRINTF) $(LIBFT) -o $(NAME)
+		@ $(CC) $(CFLAGS) $(OBJ) $(PRINTF) $(LIBFT) -o $(NAME)
 
 %.o: %.c $(DEPS)
-		$(CC) $(CFLAGS) -c $< -o $@
+		@ $(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT) :
-		$(MAKE) -C $(LIBFTDIR)
-		mv $(LIBFTDIR)$(LIBFT) .
+		@ $(MAKE) -C $(LIBFTDIR)
+		@ mv $(LIBFTDIR)$(LIBFT) .
 
 $(PRINTF) :
-		$(MAKE) -C $(PRINTFDIR)
-		mv $(PRINTFDIR)$(PRINTF) .
+		@ $(MAKE) -C $(PRINTFDIR)
+		@ mv $(PRINTFDIR)$(PRINTF) .
 		
 clean :
-		 rm -f $(OBJ) $(LIBFT) $(PRINTF)
-		$(MAKE) clean -C $(LIBFTDIR)
-		$(MAKE) clean -C $(PRINTFDIR)
+		@ rm -f $(OBJ) $(LIBFT) $(PRINTF)
+		@ $(MAKE) clean -C $(LIBFTDIR)
+		@ $(MAKE) clean -C $(PRINTFDIR)
 
 fclean : clean
-		 rm -f $(NAME)
+		 @ rm -f $(NAME)
 
 re : fclean all
 
