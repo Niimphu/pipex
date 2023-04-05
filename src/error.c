@@ -16,9 +16,10 @@ void	error_exit(t_cmds *data, char *str)
 {
 	free_cmds(data);
 	perror(str);
+	exit(errno);
 }
 
-void	open_error(char *filename, int fd)
+void	opcl_error(char *filename, int fd)
 {
 	if (fd != -1)
 		write(fd, "       0\n", 9);

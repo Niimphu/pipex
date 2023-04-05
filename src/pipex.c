@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/01 16:54:01 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/05 02:19:45 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,29 @@ void	child_process(t_cmds *data, int pipe_fd[])
 
 void	parent_process(t_cmds *data, int pipe_fd[])
 {
-	int	status;
-	int	error;
+	// int	status;
+	// int	error;
 
 	close(pipe_fd[1]);
 	if (data -> i == 0)
 		close(pipe_fd[0]);
-	while (wait(&status) > 0)
-	{
-		if (status != 0)
-			error = status;
-	}
-	if (data)
-		;
+	// while (wait(&status) > 0)
+	// {
+	// 	if (status != 0)
+	// 	{
+	// 		ft_printf("status: %i\n", status);
+	// 		error = status;
+	// 	}
+	// }
+	// if (error > 0)
+	// 	exit(error);
 }
 
 int	execute(t_cmds *data)
 {
 	char	*executable;
 
-	executable = find_exec(data -> cmd, data -> path);
+	executable = find_exec(data);
 	if (!executable)
 		return (1);
 	return (execve(executable, data -> args, data -> envp));

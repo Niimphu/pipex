@@ -21,29 +21,25 @@ t_cmds	*struct_init(char *envp[], int fd_in[])
 		return (NULL);
 	data -> fd[0] = fd_in[0];
 	data -> fd[1] = fd_in[1];
-	if (data -> fd[0] == -1 || data -> fd[1] == -1)
-		return (NULL);
 	data -> cmd = NULL;
-	data -> path = find_paths(envp);
+	data -> path = NULL;
 	data -> args = NULL;
-	if (!(data -> path))
-		return (NULL);
 	data -> envp = envp;
 	data -> i = 1;
 	return (data);
 }
 
-char	**find_paths(char *envp[])
+char	**find_paths(t_cmds *data)
 {
 	int		i;
 	char	**ret;
 
 	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5) && envp[i])
+	while (ft_strncmp(data -> envp[i], "PATH=", 5) && data -> envp[i])
 		i++;
-	if (!envp[i])
-		*envp = "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
-	ret = ft_split(envp[i], ':');
+	if (!data -> envp[i])
+		*data -> envp = "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+	ret = ft_split(data -> envp[i], ':');
 	if (!ret)
 		return (NULL);
 	ret[0] = path_trim(ret[0]);

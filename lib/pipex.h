@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/01 19:52:17 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:47:05 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ void	parent_process(t_cmds *data, int pipe_fd[]);
 int		execute(t_cmds *data);
 
 t_cmds	*struct_init(char *envp[], int fd_in[]);
-char	**find_paths(char *envp[]);
+char	**find_paths(t_cmds *data);
 char	*create_path(char *cmd, char *path);
-char	*find_exec(char *cmd, char **paths);
+char	*find_exec(t_cmds *data);
 
 void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
 void	free_ppointer(char **str);
 
 void	error_exit(t_cmds *data, char *str);
-void	open_error(char *filename, int fd);
+void	opcl_error(char *filename, int fd);
 
 char	*path_trim(char *str);
 t_cmds	*cmd_split(char *cmd, t_cmds *data);

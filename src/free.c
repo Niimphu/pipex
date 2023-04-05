@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:57:31 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/01 17:57:54 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:40:07 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 void	free_cmds(t_cmds *data)
 {
-	if (data -> cmd)
-		free_pointer(data -> cmd);
-	if (*data -> path)
+	if (!data)
+		return ;
+	if (data -> path)
 		free_ppointer(data -> path);
-	if (*data -> args)
+	if (data -> args)
 		free_ppointer(data -> args);
-	if (data)
-	{
-		free(data);
-		data = NULL;
-	}
+	free(data);
+	data = NULL;
 	return ;
 }
 

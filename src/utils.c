@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/03/25 15:42:50 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/05 01:48:11 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,26 @@ char	*create_path(char *cmd, char *path)
 	return (ret);
 }
 
-char	*find_exec(char *cmd, char **paths)
+char	*find_exec(t_cmds *data)
 {
 	char	*test;
 	int		i;
 
 	i = 0;
-	while (paths[i])
+	data -> path = find_paths(data);
+	while (data -> path[i])
 	{
-		test = create_path(cmd, paths[i++]);
+		test = create_path(data -> cmd, data -> path[i++]);
 		if (!test)
 			return (NULL);
 		if (access(test, X_OK) == 0)
+		{
+			free_ppointer(data -> path);
 			return (test);
+		}
 	}
+	free_ppointer(data -> path);
+	free_pointer(test);
 	return (NULL);
 }
 
