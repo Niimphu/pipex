@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/05 02:19:45 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/05 19:09:06 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int	fork_this(char *cmd, t_cmds *data)
 	if (pid == 0)
 		child_process(data, pipe_fd);
 	else
-		parent_process(data, pipe_fd);
-	data -> fd[0] = pipe_fd[0];
-	if (data -> args)
-		free_ppointer(data -> args);
+		parent_process(data, pipe_fd, pid);
 	return (0);
 }
 
@@ -66,24 +63,24 @@ void	child_process(t_cmds *data, int pipe_fd[])
 		exit(errno);
 }
 
-void	parent_process(t_cmds *data, int pipe_fd[])
+void	parent_process(t_cmds *data, int pipe_fd[], int pid)
 {
-	// int	status;
-	// int	error;
+	int	status;
 
 	close(pipe_fd[1]);
+	waitpid(pid, &status, 0);
+	if (status)
+	{
+		close(pipe_fd[0]);
+		exit(status);
+	}
+	close(data -> fd[0]);
 	if (data -> i == 0)
 		close(pipe_fd[0]);
-	// while (wait(&status) > 0)
-	// {
-	// 	if (status != 0)
-	// 	{
-	// 		ft_printf("status: %i\n", status);
-	// 		error = status;
-	// 	}
-	// }
-	// if (error > 0)
-	// 	exit(error);
+	else
+		data -> fd[0] = pipe_fd[0];
+	if (data -> args)
+		free_ppointer(data -> args);
 }
 
 int	execute(t_cmds *data)
