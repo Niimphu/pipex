@@ -19,7 +19,7 @@ void	error_exit(t_cmds *data, char *str)
 	exit(errno);
 }
 
-void	open_error(char *filename, int fd[], int code)
+void	open_error(char *filename, int fd[])
 {
 	if (fd[0])
 		write(fd[1], "       0\n", 9);
@@ -29,5 +29,5 @@ void	open_error(char *filename, int fd[], int code)
 		close(fd[1]);
 	write(STDERR_FILENO, "pipex: ", 7);
 	perror(filename);
-	exit(code);
+	exit(0);
 }

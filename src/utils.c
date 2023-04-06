@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/05 01:48:11 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/06 18:01:02 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*find_exec(t_cmds *data)
 
 	i = 0;
 	data -> path = find_paths(data);
+	if (!data -> path)
+		data -> path = default_path();
 	while (data -> path[i])
 	{
 		test = create_path(data -> cmd, data -> path[i++]);

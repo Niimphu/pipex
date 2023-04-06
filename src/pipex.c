@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/05 19:09:06 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/06 18:23:01 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,20 @@ void	parent_process(t_cmds *data, int pipe_fd[], int pid)
 {
 	int	status;
 
-	close(pipe_fd[1]);
 	waitpid(pid, &status, 0);
-	if (status)
-	{
-		close(pipe_fd[0]);
-		exit(status);
-	}
+	close(pipe_fd[1]);
 	close(data -> fd[0]);
 	if (data -> i == 0)
 		close(pipe_fd[0]);
 	else
 		data -> fd[0] = pipe_fd[0];
-	if (data -> args)
-		free_ppointer(data -> args);
+	free_ppointer(data -> args);
+	if (status)
+	{
+		close(pipe_fd[0]);
+		exit(status);
+	}
+	return ;
 }
 
 int	execute(t_cmds *data)

@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/05 19:19:21 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/06 18:00:56 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ void	free_pointer(char *str);
 void	free_ppointer(char **str);
 
 void	error_exit(t_cmds *data, char *str);
-void	open_error(char *filename, int fd[], int code);
+void	open_error(char *filename, int fd[]);
 
 char	*path_trim(char *str);
 t_cmds	*cmd_split(char *cmd, t_cmds *data);
+char	**default_path(void);
 
 void	print_array(char **arr);
 
