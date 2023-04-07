@@ -50,7 +50,7 @@ char	**default_path(void)
 {
 	char	**ret;
 
-	ret = malloc(sizeof(char **) + 1);
+	ret = malloc((sizeof(char *) * 6) + 1);
 	if (!ret)
 		return (NULL);
 	ret[0] = ft_strdup("/usr/local/bin");
