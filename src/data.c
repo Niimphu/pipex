@@ -34,7 +34,7 @@ char	**find_paths(t_cmds *data)
 	int		i;
 	char	**ret;
 
-	if (!data -> envp[i])
+	if (!*data -> envp)
 		return (NULL);
 	i = 0;
 	while (ft_strncmp(data -> envp[i], "PATH=", 5) && data -> envp[i])
