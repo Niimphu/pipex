@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/07 15:06:07 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/07 19:13:32 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ int	fork_this(char *cmd, t_cmds *data)
 
 void	child_process(t_cmds *data, int pipe_fd[])
 {
+	int	ret_exec;
+
+	ret_exec = 0;
 	dup2(data -> fd[0], STDIN_FILENO);
 	if (data -> i == 0)
 		dup2(data -> fd[1], STDOUT_FILENO);
@@ -59,8 +62,12 @@ void	child_process(t_cmds *data, int pipe_fd[])
 		dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	if (execute(data) == 1)
-		exit(errno);
+	ret_exec = execute(data);
+	if (ret_exec == -1)
+		exit(2);
+	if (ret_exec == 1 && data -> i == 0)
+		exit(127);
+	exit(ret_exec);
 }
 
 void	parent_process(t_cmds *data, int pipe_fd[], int pid)
