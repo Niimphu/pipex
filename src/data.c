@@ -34,11 +34,11 @@ char	**find_paths(t_cmds *data)
 	int		i;
 	char	**ret;
 
+	if (!data -> envp[i])
+		return (NULL);
 	i = 0;
 	while (ft_strncmp(data -> envp[i], "PATH=", 5) && data -> envp[i])
 		i++;
-	if (!data -> envp[i])
-		return (NULL);
 	ret = ft_split(data -> envp[i], ':');
 	if (!ret)
 		return (NULL);
