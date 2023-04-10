@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/06 18:01:02 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/10 19:58:34 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*find_exec(t_cmds *data)
 			free_ppointer(data -> path);
 			return (test);
 		}
+		free_pointer(test);
 	}
 	free_ppointer(data -> path);
 	free_pointer(test);
