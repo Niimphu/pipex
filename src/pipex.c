@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/10 20:18:34 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/11 20:09:36 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	child_process(t_cmds *data, int pipe_fd[])
 	ret_exec = execute(data);
 	if (ret_exec == -1)
 		exit(2);
-	if (ret_exec == 1 && data -> i == 0)
+	if (ret_exec == 1)
 		exit(127);
 	exit(ret_exec);
 }
@@ -73,19 +73,30 @@ void	child_process(t_cmds *data, int pipe_fd[])
 void	parent_process(t_cmds *data, int pipe_fd[], int pid)
 {
 	int	status;
+	int	exit_code;
 
 	waitpid(pid, &status, 0);
+	exit_code = WEXITSTATUS(status);
 	free_ppointer(data -> args);
 	close(pipe_fd[1]);
-	close(data -> fd[0]);
 	if (data -> i == 0)
-		close(pipe_fd[0]);
-	else
-		data -> fd[0] = pipe_fd[0];
-	if (status)
 	{
-		if (status == 2)
-			return ;
+		close(data -> fd[0]);
+		close(pipe_fd[0]);
+	}
+	else if (exit_code == 0)
+	{
+		close(data -> fd[0]);
+		data -> fd[0] = pipe_fd[0];
+	}
+	if (exit_code == 127)
+	{
+		write(2, "command not found\n", 18);
+		if (data -> i == 0)
+			exit(127);
+	}
+	else if (exit_code)
+	{
 		close(pipe_fd[0]);
 		exit(status);
 	}
