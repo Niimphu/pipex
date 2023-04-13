@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/11 20:09:36 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/12 22:45:12 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	pipex(char *argv[], char *envp[], int fd[])
 	t_cmds	*data;
 	int		i;
 
-	data = struct_init(envp, fd);
+	data = struct_init(argv, envp, fd);
 	if (data == NULL)
 		return (1);
 	i = 2;
@@ -91,7 +91,7 @@ void	parent_process(t_cmds *data, int pipe_fd[], int pid)
 	}
 	if (exit_code == 127)
 	{
-		write(2, "command not found\n", 18);
+		cmd_notfound(data);
 		if (data -> i == 0)
 			exit(127);
 	}

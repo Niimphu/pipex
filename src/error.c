@@ -31,3 +31,20 @@ void	open_error(char *filename, int fd[])
 	perror(filename);
 	exit(0);
 }
+
+void	cmd_notfound(t_cmds *data)
+{
+	int		i;
+	char	**str;
+
+	i = 0;
+	if (i == 0)
+	{
+		while (data -> argv[i])
+			i++;
+		i -= 2;
+	}
+	str = ft_split(data -> argv[i], ' ');
+	execve(str[i], str, data -> envp);
+	perror(strerror(errno));
+}

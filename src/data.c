@@ -12,7 +12,7 @@
 
 #include "../lib/pipex.h"
 
-t_cmds	*struct_init(char *envp[], int fd_in[])
+t_cmds	*struct_init(char *argv[], char *envp[], int fd_in[])
 {
 	t_cmds	*data;
 
@@ -21,6 +21,7 @@ t_cmds	*struct_init(char *envp[], int fd_in[])
 		return (NULL);
 	data -> fd[0] = fd_in[0];
 	data -> fd[1] = fd_in[1];
+	data -> argv = argv;
 	data -> cmd = NULL;
 	data -> path = NULL;
 	data -> args = NULL;
