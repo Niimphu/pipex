@@ -46,5 +46,7 @@ void	cmd_notfound(t_cmds *data)
 	}
 	str = ft_split(data -> argv[i], ' ');
 	execve(str[i], str, data -> envp);
-	perror(strerror(errno));
+	write(2, "pipex: ", 7);
+	write(2, str[0], ft_strlen(str[0]));
+	write(2, ": command not found", 19);
 }

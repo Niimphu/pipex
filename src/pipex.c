@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/12 22:45:12 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/19 19:46:02 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	parent_process(t_cmds *data, int pipe_fd[], int pid)
 	else if (exit_code)
 	{
 		close(pipe_fd[0]);
-		exit(status);
+		exit(exit_code);
 	}
 	return ;
 }
