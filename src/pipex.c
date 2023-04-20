@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/19 19:46:02 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/20 19:55:13 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	pipex(char *argv[], char *envp[], int fd[])
 		fork_this(argv[i], data);
 		i++;
 	}
-	data -> i = 0;
+	data -> i = LAST;
 	fork_this(argv[i], data);
 	free(data);
 	return (0);
@@ -79,22 +79,14 @@ void	parent_process(t_cmds *data, int pipe_fd[], int pid)
 	exit_code = WEXITSTATUS(status);
 	free_ppointer(data -> args);
 	close(pipe_fd[1]);
-	if (data -> i == 0)
-	{
+	if (data -> i == LAST || exit_code == 0)
 		close(data -> fd[0]);
+	if (data -> i == LAST)
 		close(pipe_fd[0]);
-	}
 	else if (exit_code == 0)
-	{
-		close(data -> fd[0]);
 		data -> fd[0] = pipe_fd[0];
-	}
-	if (exit_code == 127)
-	{
-		cmd_notfound(data);
-		if (data -> i == 0)
-			exit(127);
-	}
+	if (exit_code == 127 && data -> i == LAST)
+		exit(127);
 	else if (exit_code)
 	{
 		close(pipe_fd[0]);
@@ -110,7 +102,10 @@ int	execute(t_cmds *data)
 
 	executable = find_exec(data);
 	if (!executable)
+	{
+		cmd_notfound(data);
 		return (1);
+	}
 	ret = execve(executable, data -> args, data -> envp);
 	free_pointer(executable);
 	return (ret);

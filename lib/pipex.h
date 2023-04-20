@@ -6,12 +6,14 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/12 23:55:51 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/20 19:49:55 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+# define LAST 0
 
 # include <stdlib.h>
 # include <fcntl.h>

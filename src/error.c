@@ -34,19 +34,7 @@ void	open_error(char *filename, int fd[])
 
 void	cmd_notfound(t_cmds *data)
 {
-	int		i;
-	char	**str;
-
-	i = 0;
-	if (i == 0)
-	{
-		while (data -> argv[i])
-			i++;
-		i -= 2;
-	}
-	str = ft_split(data -> argv[i], ' ');
-	execve(str[i], str, data -> envp);
 	write(2, "pipex: ", 7);
-	write(2, str[0], ft_strlen(str[0]));
-	write(2, ": command not found", 19);
+	write(2, data -> cmd, ft_strlen(data -> cmd));
+	write(2, ": command not found\n", 20);
 }
