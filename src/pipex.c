@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/20 20:38:01 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/21 15:15:11 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	parent_process(t_cmds *data, int pipe_fd[], int pid)
 		data -> fd[0] = pipe_fd[0];
 	}
 	if (exit_code == 127 && data -> i == LAST)
-		exit(127);
+		close_exit(127);
 	else if (exit_code && exit_code != 127)
 	{
 		close(pipe_fd[0]);
-		exit(exit_code);
+		close_exit(exit_code);
 	}
 	return ;
 }
