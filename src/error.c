@@ -12,11 +12,24 @@
 
 #include "../lib/pipex.h"
 
-void	error_exit(t_cmds *data, char *str)
+// void	error_exit(t_cmds *data, char *str)
+// {
+// 	free_cmds(data);
+// 	perror(str);
+// 	exit(errno);
+// }
+
+void	close_exit(int code)
 {
-	free_cmds(data);
-	perror(str);
-	exit(errno);
+	int	fd;
+
+	fd = 3;
+	while (fd < 64)
+	{
+		close(fd);
+		fd++;
+	}
+	exit(code);
 }
 
 void	open_error(char *filename, int fd[])
