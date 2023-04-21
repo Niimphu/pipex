@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/10 20:07:39 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/21 15:11:19 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ char	*create_path(char *cmd, char *path)
 {
 	char	*slash;
 	char	*ret;
+	char	*temp;
 
 	slash = "/";
-	ret = ft_strjoin(path, slash);
+	temp = ft_strjoin(path, slash);
+	if (!temp)
+		return (NULL);
+	ret = ft_strjoin(temp, cmd);
 	if (!ret)
 		return (NULL);
-	ret = ft_strjoin(ret, cmd);
-	if (!ret)
-		return (NULL);
+	free(temp);
 	return (ret);
 }
 
