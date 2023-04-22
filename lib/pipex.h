@@ -6,12 +6,14 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/12 23:55:51 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/21 15:06:53 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+# define LAST 0
 
 # include <stdlib.h>
 # include <fcntl.h>
@@ -45,11 +47,12 @@ char	**find_paths(t_cmds *data);
 char	*create_path(char *cmd, char *path);
 char	*find_exec(t_cmds *data);
 
-void	free_cmds(t_cmds *data);
+// void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
 void	free_ppointer(char **str);
 
-void	error_exit(t_cmds *data, char *str);
+// void	error_exit(t_cmds *data, char *str);
+void	close_exit(int code);
 void	open_error(char *filename, int fd[]);
 void	cmd_notfound(t_cmds *data);
 

@@ -12,11 +12,24 @@
 
 #include "../lib/pipex.h"
 
-void	error_exit(t_cmds *data, char *str)
+// void	error_exit(t_cmds *data, char *str)
+// {
+// 	free_cmds(data);
+// 	perror(str);
+// 	exit(errno);
+// }
+
+void	close_exit(int code)
 {
-	free_cmds(data);
-	perror(str);
-	exit(errno);
+	int	fd;
+
+	fd = 3;
+	while (fd < 64)
+	{
+		close(fd);
+		fd++;
+	}
+	exit(code);
 }
 
 void	open_error(char *filename, int fd[])
@@ -34,17 +47,7 @@ void	open_error(char *filename, int fd[])
 
 void	cmd_notfound(t_cmds *data)
 {
-	int		i;
-	char	**str;
-
-	i = 0;
-	if (i == 0)
-	{
-		while (data -> argv[i])
-			i++;
-		i -= 2;
-	}
-	str = ft_split(data -> argv[i], ' ');
-	execve(str[i], str, data -> envp);
-	perror(strerror(errno));
+	write(2, "pipex: ", 7);
+	write(2, data -> cmd, ft_strlen(data -> cmd));
+	write(2, ": command not found\n", 20);
 }
