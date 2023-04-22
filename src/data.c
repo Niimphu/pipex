@@ -21,6 +21,10 @@ t_cmds	*struct_init(char *argv[], char *envp[], int fd_in[])
 		return (NULL);
 	data -> fd[0] = fd_in[0];
 	data -> fd[1] = fd_in[1];
+	if (!ft_strncmp(argv[1], "here_doc", 9))
+		data -> is_heredoc = 1;
+	else
+		data -> is_heredoc = 0;
 	data -> argv = argv;
 	data -> cmd = NULL;
 	data -> path = NULL;

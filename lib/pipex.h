@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/21 15:06:53 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/22 18:20:30 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@
 # include <errno.h>
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
+# include "get_next_line/get_next_line.h"
 
 typedef struct s_cmds
 {
+	int		is_heredoc;
 	int		fd[2];
 	int		i;
 	char	*cmd;
@@ -35,6 +37,8 @@ typedef struct s_cmds
 	char	**envp;
 	char	**argv;
 }			t_cmds;
+
+int		heredoc(char *limiter);
 
 int		pipex(char *argv[], char *envp[], int fd[]);
 int		fork_this(char *cmd, t_cmds *data);

@@ -6,7 +6,7 @@
 #    By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 19:20:45 by yiwong            #+#    #+#              #
-#    Updated: 2023/04/01 18:08:05 by yiwong           ###   ########.fr        #
+#    Updated: 2023/04/22 17:32:51 by yiwong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,14 @@ PRINTF = ft_printf.a
 PRINTFDIR = lib/ft_printf/
 
 SRC = src/main.c \
+		src/heredoc.c \
 		src/pipex.c \
 		src/data.c \
 		src/error.c \
 		src/free.c \
-		src/utils.c
+		src/utils.c \
+		lib/get_next_line/get_next_line.c \
+		lib/get_next_line/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 

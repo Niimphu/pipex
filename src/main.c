@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:25:57 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/21 15:14:06 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/22 18:54:56 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	main(int argc, char *argv[], char *envp[])
 	fd[1] = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (fd[1] == -1)
 		open_error((argv[argc - 1]), fd);
-	fd[0] = open(argv[1], O_RDONLY, 0777);
+	if (!ft_strncmp(argv[1], "here_doc", 9))
+		fd[0] = heredoc(argv[2]);
+	else
+		fd[0] = open(argv[1], O_RDONLY, 0666);
 	if (fd[0] == -1)
 		open_error((argv[1]), fd);
 	pipex(argv, envp, fd);
