@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/24 17:01:19 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/24 17:36:33 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_cmds
 {
 	int		is_heredoc;
 	int		fd[2];
+	int		pipe_fd[2];
 	int		i;
 	char	*cmd;
 	char	**path;
@@ -42,8 +43,8 @@ int		heredoc(char *limiter);
 
 int		pipex(t_cmds *data);
 int		fork_this(char *cmd, t_cmds *data);
-void	child_process(t_cmds *data, int pipe_fd[]);
-void	parent_process(t_cmds *data, int pipe_fd[], int pid);
+void	child_process(t_cmds *data);
+void	parent_process(t_cmds *data, int pid);
 int		execute(t_cmds *data);
 
 t_cmds	*struct_init(char *argv[], char *envp[]);

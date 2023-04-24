@@ -73,12 +73,12 @@ NAME = libft.a
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-		$(CC) $(CFLAGS) -c $(SRC)
-		$(AR) $(NAME) $(OBJ)
+		@ $(CC) $(CFLAGS) -c $(SRC)
+		@ $(AR) $(NAME) $(OBJ)
 
 bonus : $(OBJ) $(BONUS_OBJ)
-		$(CC) $(CFLAGS) -c $(SRC) $(BONUS_SRC)
-		$(AR) $(NAME) $(OBJ) $(BONUS_OBJ)
+		@ $(CC) $(CFLAGS) -c $(SRC) $(BONUS_SRC)
+		@ $(AR) $(NAME) $(OBJ) $(BONUS_OBJ)
 
 clean :
 		 rm -f $(OBJ) $(BONUS_OBJ)
