@@ -30,7 +30,11 @@ void	open_error(char *filename, t_cmds *data)
 	if (data -> fd[0])
 		write(data -> fd[1], "       0\n", 9);
 	if (data -> fd[0] > 0)
+	{
+		if (data -> is_heredoc == 1)
+			unlink("temp");
 		close(data -> fd[0]);
+	}
 	if (data -> fd[1])
 		close(data -> fd[1]);
 	write(STDERR_FILENO, "pipex: ", 7);

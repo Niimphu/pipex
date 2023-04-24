@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/24 17:01:42 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/24 17:37:06 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ int	pipex(t_cmds *data)
 int	fork_this(char *cmd, t_cmds *data)
 {
 	int	pid;
-	int	pipe_fd[2];
 
 	data = cmd_split(cmd, data);
-	if (pipe(pipe_fd) == -1)
+	if (pipe(data -> pipe_fd) == -1)
 		return (1);
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork: "), 0);
 	if (pid == 0)
-		child_process(data, pipe_fd);
+		child_process(data);
 	else
-		parent_process(data, pipe_fd, pid);
+	{
+		free_ppointer(data -> args);
+		parent_process(data, pid);
+	}
 	return (0);
 }
 
-void	child_process(t_cmds *data, int pipe_fd[])
+void	child_process(t_cmds *data)
 {
 	int	ret_exec;
 
@@ -55,9 +57,9 @@ void	child_process(t_cmds *data, int pipe_fd[])
 	if (data -> i == 0)
 		dup2(data -> fd[1], STDOUT_FILENO);
 	else
-		dup2(pipe_fd[1], STDOUT_FILENO);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
+		dup2(data -> pipe_fd[1], STDOUT_FILENO);
+	close(data -> pipe_fd[0]);
+	close(data -> pipe_fd[1]);
 	ret_exec = execute(data);
 	if (ret_exec == -1)
 		exit(2);
@@ -66,29 +68,28 @@ void	child_process(t_cmds *data, int pipe_fd[])
 	exit(ret_exec);
 }
 
-void	parent_process(t_cmds *data, int pipe_fd[], int pid)
+void	parent_process(t_cmds *data, int pid)
 {
 	int	status;
 	int	exit_code;
 
 	waitpid(pid, &status, 0);
 	exit_code = WEXITSTATUS(status);
-	free_ppointer(data -> args);
-	close(pipe_fd[1]);
+	close(data -> pipe_fd[1]);
 	if (data -> i == LAST || exit_code == 0)
 		close(data -> fd[0]);
 	if (data -> i == LAST)
-		close(pipe_fd[0]);
+		close(data -> pipe_fd[0]);
 	else if (exit_code == 0)
 	{
 		close(data -> fd[0]);
-		data -> fd[0] = pipe_fd[0];
+		data -> fd[0] = data -> pipe_fd[0];
 	}
 	if (exit_code == 127 && data -> i == LAST)
 		close_exit(127);
 	else if (exit_code && exit_code != 127)
 	{
-		close(pipe_fd[0]);
+		close(data -> pipe_fd[0]);
 		close_exit(exit_code);
 	}
 	return ;

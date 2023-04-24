@@ -6,7 +6,7 @@
 #    By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 19:20:45 by yiwong            #+#    #+#              #
-#    Updated: 2023/04/22 17:32:51 by yiwong           ###   ########.fr        #
+#    Updated: 2023/04/24 17:38:35 by yiwong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,9 @@ $(LIBFT) :
 $(PRINTF) :
 		@ $(MAKE) -C $(PRINTFDIR)
 		@ mv $(PRINTFDIR)$(PRINTF) .
-		
+
+bonus : all
+
 clean :
 		@ rm -f $(OBJ) $(LIBFT) $(PRINTF)
 		@ $(MAKE) clean -C $(LIBFTDIR)
