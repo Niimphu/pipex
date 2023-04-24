@@ -42,28 +42,28 @@ NAME = pipex
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT) $(PRINTF)
-		@ $(CC) $(CFLAGS) $(OBJ) $(PRINTF) $(LIBFT) -o $(NAME)
+		@$(CC) $(CFLAGS) $(OBJ) $(PRINTF) $(LIBFT) -o $(NAME)
 
 %.o: %.c $(DEPS)
-		@ $(CC) $(CFLAGS) -c $< -o $@
+		@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT) :
-		@ $(MAKE) -C $(LIBFTDIR)
-		@ mv $(LIBFTDIR)$(LIBFT) .
+		@$(MAKE) -C $(LIBFTDIR)
+		@mv $(LIBFTDIR)$(LIBFT) .
 
 $(PRINTF) :
-		@ $(MAKE) -C $(PRINTFDIR)
-		@ mv $(PRINTFDIR)$(PRINTF) .
+		@$(MAKE) -C $(PRINTFDIR)
+		@mv $(PRINTFDIR)$(PRINTF) .
 
 bonus : all
 
 clean :
-		@ rm -f $(OBJ) $(LIBFT) $(PRINTF)
-		@ $(MAKE) clean -C $(LIBFTDIR)
-		@ $(MAKE) clean -C $(PRINTFDIR)
+		@rm -f $(OBJ) $(LIBFT) $(PRINTF)
+		@$(MAKE) clean -C $(LIBFTDIR)
+		@$(MAKE) clean -C $(PRINTFDIR)
 
 fclean : clean
-		 @ rm -f $(NAME)
+		 @rm -f $(NAME)
 
 re : fclean all
 
