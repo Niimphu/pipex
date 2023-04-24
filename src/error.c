@@ -12,13 +12,6 @@
 
 #include "../lib/pipex.h"
 
-// void	error_exit(t_cmds *data, char *str)
-// {
-// 	free_cmds(data);
-// 	perror(str);
-// 	exit(errno);
-// }
-
 void	close_exit(int code)
 {
 	int	fd;
@@ -32,14 +25,14 @@ void	close_exit(int code)
 	exit(code);
 }
 
-void	open_error(char *filename, int fd[])
+void	open_error(char *filename, t_cmds *data)
 {
-	if (fd[0])
-		write(fd[1], "       0\n", 9);
-	if (fd[0] > 0)
-		close(fd[0]);
-	if (fd[1])
-		close(fd[1]);
+	if (data -> fd[0])
+		write(data -> fd[1], "       0\n", 9);
+	if (data -> fd[0] > 0)
+		close(data -> fd[0]);
+	if (data -> fd[1])
+		close(data -> fd[1]);
 	write(STDERR_FILENO, "pipex: ", 7);
 	perror(filename);
 	exit(0);

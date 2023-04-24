@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/22 18:20:30 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/24 17:01:19 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,22 @@ typedef struct s_cmds
 
 int		heredoc(char *limiter);
 
-int		pipex(char *argv[], char *envp[], int fd[]);
+int		pipex(t_cmds *data);
 int		fork_this(char *cmd, t_cmds *data);
 void	child_process(t_cmds *data, int pipe_fd[]);
 void	parent_process(t_cmds *data, int pipe_fd[], int pid);
 int		execute(t_cmds *data);
 
-t_cmds	*struct_init(char *argv[], char *envp[], int fd_in[]);
+t_cmds	*struct_init(char *argv[], char *envp[]);
 char	**find_paths(t_cmds *data);
 char	*create_path(char *cmd, char *path);
 char	*find_exec(t_cmds *data);
 
-// void	free_cmds(t_cmds *data);
 void	free_pointer(char *str);
 void	free_ppointer(char **str);
 
-// void	error_exit(t_cmds *data, char *str);
 void	close_exit(int code);
-void	open_error(char *filename, int fd[]);
+void	open_error(char *filename, t_cmds *data);
 void	cmd_notfound(t_cmds *data);
 
 char	*path_trim(char *str);

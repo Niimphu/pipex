@@ -12,15 +12,15 @@
 
 #include "../lib/pipex.h"
 
-t_cmds	*struct_init(char *argv[], char *envp[], int fd_in[])
+t_cmds	*struct_init(char *argv[], char *envp[])
 {
 	t_cmds	*data;
 
 	data = malloc(sizeof(t_cmds));
 	if (!data)
 		return (NULL);
-	data -> fd[0] = fd_in[0];
-	data -> fd[1] = fd_in[1];
+	data -> fd[0] = 0;
+	data -> fd[1] = 0;
 	if (!ft_strncmp(argv[1], "here_doc", 9))
 		data -> is_heredoc = 1;
 	else

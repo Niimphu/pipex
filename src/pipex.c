@@ -6,28 +6,24 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/22 18:36:33 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/24 17:01:42 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/pipex.h"
 
-int	pipex(char *argv[], char *envp[], int fd[])
+int	pipex(t_cmds *data)
 {
-	t_cmds	*data;
 	int		i;
 
-	data = struct_init(argv, envp, fd);
-	if (data == NULL)
-		return (1);
 	i = 2 + data -> is_heredoc;
-	while (argv[i + 2])
+	while (data -> argv[i + 2])
 	{
-		fork_this(argv[i], data);
+		fork_this(data -> argv[i], data);
 		i++;
 	}
 	data -> i = LAST;
-	fork_this(argv[i], data);
+	fork_this(data -> argv[i], data);
 	free(data);
 	return (0);
 }
