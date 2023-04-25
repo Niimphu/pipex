@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:25:57 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/25 16:17:52 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/25 16:36:12 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (data -> fd[0] == -1)
 		open_error((argv[1]), data);
 	pipex(data);
-	close(data -> fd[1]);
+	close_reset(data -> fd[1]);
 	return (0);
 }
 
@@ -50,7 +50,7 @@ int	heredoc(char *limiter)
 			break ;
 		write(fd, input, ft_strlen(input));
 	}
-	close(fd);
+	close_reset(fd);
 	fd = open("temp", O_RDONLY, 0666);
 	return (fd);
 }
