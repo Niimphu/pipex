@@ -6,7 +6,7 @@
 #    By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 19:20:45 by yiwong            #+#    #+#              #
-#    Updated: 2023/04/24 17:38:35 by yiwong           ###   ########.fr        #
+#    Updated: 2023/04/25 16:18:44 by yiwong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ PRINTF = ft_printf.a
 PRINTFDIR = lib/ft_printf/
 
 SRC = src/main.c \
-		src/heredoc.c \
 		src/pipex.c \
 		src/data.c \
 		src/error.c \
