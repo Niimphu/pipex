@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/25 17:14:10 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/25 18:10:20 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,5 @@ void	cmd_notfound(t_cmds *data);
 char	*path_trim(char *str);
 t_cmds	*cmd_split(char *cmd, t_cmds *data);
 char	**default_path(void);
-
-void	print_array(char **arr);
 
 #endif

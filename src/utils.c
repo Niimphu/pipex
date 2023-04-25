@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:17:11 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/21 15:11:19 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/25 18:10:23 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,4 @@ char	*find_exec(t_cmds *data)
 	}
 	free_ppointer(data -> path);
 	return (NULL);
-}
-
-void	print_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		ft_printf("arr[%i]: %s\n", i, arr[i]);
-		i++;
-	}
-	return ;
 }
