@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:52 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/24 17:37:06 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/25 17:30:08 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	pipex(t_cmds *data)
 	}
 	data -> i = LAST;
 	fork_this(data -> argv[i], data);
-	free(data);
 	return (0);
 }
 
@@ -58,8 +57,8 @@ void	child_process(t_cmds *data)
 		dup2(data -> fd[1], STDOUT_FILENO);
 	else
 		dup2(data -> pipe_fd[1], STDOUT_FILENO);
-	close(data -> pipe_fd[0]);
-	close(data -> pipe_fd[1]);
+	close_reset(data -> pipe_fd[0]);
+	close_reset(data -> pipe_fd[1]);
 	ret_exec = execute(data);
 	if (ret_exec == -1)
 		exit(2);
@@ -75,21 +74,21 @@ void	parent_process(t_cmds *data, int pid)
 
 	waitpid(pid, &status, 0);
 	exit_code = WEXITSTATUS(status);
-	close(data -> pipe_fd[1]);
+	close_reset(data -> pipe_fd[1]);
 	if (data -> i == LAST || exit_code == 0)
-		close(data -> fd[0]);
-	if (data -> i == LAST)
-		close(data -> pipe_fd[0]);
+		close_reset(data -> fd[0]);
+	if (data -> i == LAST || (exit_code == 127 && data -> i != LAST))
+		close_reset(data -> pipe_fd[0]);
 	else if (exit_code == 0)
 	{
-		close(data -> fd[0]);
+		close_reset(data -> fd[0]);
 		data -> fd[0] = data -> pipe_fd[0];
 	}
 	if (exit_code == 127 && data -> i == LAST)
 		close_exit(127);
 	else if (exit_code && exit_code != 127)
 	{
-		close(data -> pipe_fd[0]);
+		close_reset(data -> pipe_fd[0]);
 		close_exit(exit_code);
 	}
 	return ;

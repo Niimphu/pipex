@@ -19,10 +19,10 @@ t_cmds	*struct_init(char *argv[], char *envp[])
 	data = malloc(sizeof(t_cmds));
 	if (!data)
 		return (NULL);
-	data -> fd[0] = 0;
-	data -> fd[1] = 0;
-	data -> pipe_fd[0] = 0;
-	data -> pipe_fd[1] = 0;
+	data -> fd[0] = -1;
+	data -> fd[1] = -1;
+	data -> pipe_fd[0] = -1;
+	data -> pipe_fd[1] = -1;
 	if (!ft_strncmp(argv[1], "here_doc", 9))
 		data -> is_heredoc = 1;
 	else

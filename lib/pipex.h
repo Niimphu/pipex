@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:11:58 by yiwong            #+#    #+#             */
-/*   Updated: 2023/04/24 17:36:33 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/04/25 17:14:10 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	*find_exec(t_cmds *data);
 
 void	free_pointer(char *str);
 void	free_ppointer(char **str);
+void	close_reset(int fd);
+void	close_all(t_cmds *data);
 
 void	close_exit(int code);
 void	open_error(char *filename, t_cmds *data);

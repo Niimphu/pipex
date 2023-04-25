@@ -19,7 +19,7 @@ void	close_exit(int code)
 	fd = 3;
 	while (fd < 64)
 	{
-		close(fd);
+		close_reset(fd);
 		fd++;
 	}
 	exit(code);
@@ -33,10 +33,10 @@ void	open_error(char *filename, t_cmds *data)
 	{
 		if (data -> is_heredoc == 1)
 			unlink("temp");
-		close(data -> fd[0]);
+		close_reset(data -> fd[0]);
 	}
 	if (data -> fd[1])
-		close(data -> fd[1]);
+		close_reset(data -> fd[1]);
 	write(STDERR_FILENO, "pipex: ", 7);
 	perror(filename);
 	exit(0);
