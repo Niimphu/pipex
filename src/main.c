@@ -6,7 +6,7 @@
 /*   By: yiwong <yiwong@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:25:57 by yiwong            #+#    #+#             */
-/*   Updated: 2023/05/01 18:52:26 by yiwong           ###   ########.fr       */
+/*   Updated: 2023/05/05 01:48:11 by yiwong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	heredoc(char *limiter)
 		if (ft_strncmp(input, limiter, ft_strlen(input) - 1) == 0
 			&& ft_strlen(input) == ft_strlen(limiter) + 1)
 		{
-			free_pointer(intput);
+			free_pointer(input);
 			break ;
 		}
 		write(fd, input, ft_strlen(input));
-		free_pointer(intput);
+		free_pointer(input);
 	}
 	close(fd);
 	fd = open("temp", O_RDONLY, 0666);
